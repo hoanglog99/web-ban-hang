@@ -21,7 +21,7 @@ class Transaction extends Model
         ],
         '3' => [
             'class' => 'success',
-            'name'  => 'Hoàn thành'
+            'name'  => 'Đã hoàn thành'
         ],
         '-1' => [
             'class' => 'danger',

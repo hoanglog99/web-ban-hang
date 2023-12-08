@@ -34,6 +34,8 @@ class TransactionSuccess extends Mailable
         return $this->view('emails.email_success_transaction')
                 ->with([
                     'shopping' => $this->transactions,
-                ]);
+                ])
+                ->subject('Đặt Hàng Thành Công');
+
     }
 }

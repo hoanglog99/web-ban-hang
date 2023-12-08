@@ -6,6 +6,9 @@
         Route::get('update-info','UserInfoController@updateInfo')->name('get.user.update_info');
         Route::post('update-info','UserInfoController@saveUpdateInfo');
 
+        Route::get('change-password','UserInfoController@changePassword')->name('get.user.change_password');
+        Route::post('change-password','UserInfoController@saveChangePassword')->name('get.user.savePassword');
+
         Route::get('transaction','UserTransactionController@index')->name('get.user.transaction');
         Route::get('order/view/{id}','UserTransactionController@viewOrder')->name('get.user.order');
 

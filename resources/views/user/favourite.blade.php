@@ -22,8 +22,23 @@
                     </thead>
                     <tbody>
                         @foreach($products as $item)
+                            <style>
+                                .iddh {
+                                    color: #000; /* Màu ban đầu của chữ */
+                                    font-size: 400; /* Kích thước ban đầu của chữ */
+                                    transition: color 0.3s, font-size 0.3s; /* Thời gian và thuộc tính chuyển đổi */
+                                }
+
+                                /* Khi hover, thay đổi màu và kích thước của chữ */
+                                .iddh:hover {
+                                    color: #fb236a; /* Màu khi hover */
+                                    font-size: large; /* Kích thước khi hover */
+                                }
+                          </style>
                             <tr>
-                                <th scope="row">DH{{ $item->id }}</th>
+                                <th scope="row">
+                                  <a class="iddh" href="{{ route('get.user.order', $item->id) }}">DH{{ $item->id }}</a>
+                                </th>
                                 <th>{{ $item->pro_name }}</th>
                                 <th>
                                     <span class="label label-success">{{ $item->category->c_name ?? "[N\A]" }}</span>

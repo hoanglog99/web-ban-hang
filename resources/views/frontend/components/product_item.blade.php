@@ -2,11 +2,15 @@
     <div class="product-item">
         <a href="{{ route('get.product.detail',$product->pro_slug . '-'.$product->id ) }}" title="" class="avatar image contain">
             <img alt="{{  $product->pro_name }}" data-src="{{ pare_url_file($product->pro_avatar) }}" src="{{  asset('images/preloader.gif') }}" class="lazyload lazy">
+            @if ($product->pro_number <= 0)
+                <div class="sold-out">Hết hàng</div>
+            @endif
         </a>
         <a href="{{ route('get.product.detail',$product->pro_slug . '-'.$product->id ) }}"
          title="{{  $product->pro_name }}" class="title">
             <h3>{{  $product->pro_name }}</h3>
         </a>
+
         <p class="rating">
             <span>
                 @php 
@@ -24,7 +28,7 @@
         </p>
         @if ($product->pro_sale)
             <p>
-                <span class="percent">-{{ $product->pro_sale }}%</span>
+                <span class="percent">(-{{ $product->pro_sale }}%)</span>
                 @php 
                     $price = ((100 - $product->pro_sale) * $product->pro_price)  /  100 ;
                 @endphp
@@ -34,6 +38,5 @@
         @else 
             <p class="price">{{  number_format($product->pro_price,0,',','.') }} đ</p>
         @endif
-        
     </div>
 @endif

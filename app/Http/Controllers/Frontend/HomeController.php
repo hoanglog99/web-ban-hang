@@ -21,7 +21,7 @@ class HomeController extends FrontendController
         $productsNew = Product::where('pro_active',1)
             ->orderByDesc('id')
             ->limit(4)
-            ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star')
+            ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star','pro_number')
             ->get();
 
         //Sản phẩm hót
@@ -31,7 +31,7 @@ class HomeController extends FrontendController
             ])
             ->orderByDesc('id')
             ->limit(5)
-            ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star')
+            ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star','pro_number')
             ->get();
 
         //Sản phẩm mua nhiều
@@ -41,7 +41,7 @@ class HomeController extends FrontendController
             ->where('pro_pay','>=', 0)
             ->orderByDesc('pro_pay')
             ->limit(10)
-            ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star')
+            ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star','pro_number')
             ->get();
         
         // Lấy event hiển thị đầu
@@ -105,7 +105,7 @@ class HomeController extends FrontendController
             $products = Product::whereIn('id',$listID)
                 ->orderByDesc('id')
                 ->limit(5)
-                ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star')
+                ->select('id','pro_name','pro_slug','pro_sale','pro_avatar','pro_price','pro_review_total','pro_review_star','pro_number')
                 ->get();
             $html = view('frontend.pages.home.include._recently',compact('products'))->render();
 

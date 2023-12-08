@@ -1,7 +1,7 @@
 <div class="item">
     <p class="item_author">
         <span>{{ $rating->user->name ?? "Admin" }}</span>
-        <span class="item_success"><i class="la la-check-circle"></i> Đã mua hàng tại Siêu Thị Của Chúng Tôi</span>
+        <span class="item_success"><i class="la la-check-circle"></i> Đã mua hàng tại Hapi2hand</span>
     </p>
     <div class="item_review">
         <span class="item_review">

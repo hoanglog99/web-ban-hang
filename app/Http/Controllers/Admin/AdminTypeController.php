@@ -36,8 +36,7 @@ class AdminTypeController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.type.create', compact('categories'));
+        return view('admin.type.create');
     }
 
     /**
@@ -50,6 +49,7 @@ class AdminTypeController extends Controller
     {
         //
         $data = $request->except('_token');
+        $data['t_is_multi_choice'] = isset($data['t_is_multi_choice']) ? true : false;
         $data['t_slug']   = Str::slug($request->t_name);
         $data['created_at'] = Carbon::now();
 
@@ -86,6 +86,7 @@ class AdminTypeController extends Controller
         //
         $type = Type::find($id);
         $data               = $request->except('_token');
+        $data['t_is_multi_choice'] = isset($data['t_is_multi_choice']) ? true : false;
         $data['t_slug']   = Str::slug($request->t_name);
         $data['updated_at'] = Carbon::now();
 

@@ -24,7 +24,6 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Time</th>
-                                    <th>Action</th>
                                 </tr>
                                 @if (isset($users))
                                     @foreach($users as $user)
@@ -34,10 +33,6 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->created_at }}</td>
-                                            <td>
-                                                {{-- <a href="{{ route('admin.user.update', $user->id) }}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Edit</a> --}}
-                                                <a href="{{  route('admin.user.delete', $user->id) }}" class="btn btn-xs btn-danger js-delete-confirm"><i class="fa fa-trash"></i> Delete</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 @endif

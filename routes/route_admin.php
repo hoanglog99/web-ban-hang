@@ -57,6 +57,18 @@
 
         });
 
+        Route::group(['prefix' => 'type'], function(){
+            Route::get('','AdminTypeController@index')->name('admin.type.index');
+            Route::get('create','AdminTypeController@create')->name('admin.type.create');
+            Route::post('create','AdminTypeController@store');
+
+            Route::get('update/{id}','AdminTypeController@edit')->name('admin.type.update');
+            Route::post('update/{id}','AdminTypeController@update');
+
+            Route::get('delete/{id}','AdminTypeController@delete')->name('admin.type.delete');
+
+        });
+
         Route::group(['prefix' => 'user'], function(){
             Route::get('','AdminUserController@index')->name('admin.user.index');
 

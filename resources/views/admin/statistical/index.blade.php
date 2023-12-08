@@ -2,7 +2,7 @@
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Trang quản trị hệ thống website xây dựng website bán hàng</h1>
+        <h1>Trang quản trị hệ thống website bán giày Hapi2hand</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         </ol>
@@ -61,6 +61,15 @@
             </div>
             <!-- /.col -->
         </div>
+        <div class="box-title" style="margin-bottom:15px">
+            <form class="form-inline">
+                <label for="start_date" style="margin-right:5px">Từ</label>
+                <input id="start_date" class="form-control" type="date" name="start_date" value="{{ Request::get('start_date') }}"/>
+                <label for="end_date" style="margin:0 5px">Đến</label>
+                <input id="end_date" class="form-control" type="date" name="end_date" value="{{ Request::get('end_date') }}"/>
+                <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Tìm kiếm</button>
+            </form>
+        </div>
 
     <!-- /.row -->
     <div class="row" style="margin-bottom: 15px;">
@@ -85,7 +94,7 @@
             <!-- TABLE: LATEST ORDERS -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Danh sách đơn hàng mới</h3>
+                    <h3 class="box-title">Danh sách đơn hàng {{ !!sizeof($transactions) ? '('.sizeof($transactions).' đơn hàng)' : '' }}</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
@@ -107,6 +116,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (!sizeof($transactions))
+                                    <tr>
+                                        <td colspan="6" style="text-align:center;padding: 20px">Không có đơn hàng nào</div>
+                                    </tr>
+                                @endif
                                 @foreach($transactions as $transaction)
                                     <tr>
                                         <td>{{ $transaction->id }}</td>
@@ -151,7 +165,7 @@
             <!-- PRODUCT LIST -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Top sản phẩm bán chạy</h3>
+                    <h3 class="box-title">Top 10 sản phẩm bán chạy</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
@@ -160,6 +174,9 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    @if (!sizeof($topPayProducts))
+                        <div style="text-align:center;padding:20px">Không có sản phẩm nào</div>
+                    @endif
                     <ul class="products-list product-list-in-box">
                         @foreach($topPayProducts as $item)
                         <li class="item">
@@ -187,7 +204,7 @@
             <!-- PRODUCT LIST -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Top sản phẩm xem nhiều</h3>
+                    <h3 class="box-title">Top 10 sản phẩm xem nhiều</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
@@ -274,10 +291,7 @@
                 type: 'spline'
             },
             title: {
-                text: 'Biểu đồ doanh thu các ngày trong tháng'
-            },
-            subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: 'Biểu đồ doanh thu'
             },
             xAxis: {
                 categories: listday

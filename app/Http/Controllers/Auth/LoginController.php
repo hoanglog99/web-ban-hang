@@ -54,7 +54,10 @@ class LoginController extends Controller
             $this->logLogin();
             return redirect()->intended('/');
         }
-
+        \Session::flash('toastr', [
+            'type'    => 'error',
+            'message' => 'sai tài khoản hoặc mật khẩu'
+        ]);
         return redirect()->back();
     }
 

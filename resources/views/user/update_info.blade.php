@@ -6,7 +6,15 @@
 @stop
 @section('content')
     <section>
-        <div class="title">Cập nhật thông tin</div>
+        <style>
+            .btn_changepass:hover{
+                background-color: #6699FF;
+                color: black !important;
+                transition: color 0.5s
+            }
+        </style>
+        <h1 class="title">Cập Nhật Thông Tin</h1> 
+        <a href="{{route('get.user.change_password')}}" style="margin-left: 87%;" class="btn btn-primary btn_changepass" type="button">Đổi Mật Khẩu</a>  
         <form action="" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -36,7 +44,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-blue btn-md">Submit</button>
+            <button type="submit" class="btn btn-blue btn-md">Cập Nhật Thông Tin</button>
         </form>
 
     </section>

@@ -2,19 +2,19 @@
     <div style="height: 55px;background: #3a2615;padding: 10px">
         <div style="width: 50%">
             <a href="">
-                <img style="height: 55px" src="http://tranining.previewcode.net/images/icon/Logo.png">
+                <img style="height: 55px" src="http://tranining.previewcode.net/images/logo_hap2handdd-removebg-preview.png">
             </a>
         </div>
         <div style="width: 50%"></div>
     </div>
     <div style="background: white;padding: 15px;border:1px solid #dedede;">
-        <h2 style="margin:10px 0;border-bottom: 1px solid #dedede;padding-bottom: 10px;">Danh sách sản phẩm bạn đã mua</h2>
+        <h2 style="margin:10px 0;border-bottom: 1px solid #dedede;padding-bottom: 10px; text-align: center;">Danh Sách Sản Phẩm Bạn Đã Đặt</h2>
         <div>
             @foreach($shopping as $key => $item)
                 <div style="border-bottom: 1px solid #dedede;padding-bottom: 10px;padding-top: 10px;">
                     <div class="" style="width: 15%;float: left;">
                         <a href="">
-                            <img style="max-width: 100%;width: 80px;height: 100px" src="http://tranining.previewcode.net{{ pare_url_file($item->options->image) }}">
+                            <img style="max-width: 100%;width: 100px;height: 100px" src="http://tranining.previewcode.net{{ pare_url_file($item->options->image) }}">
                         </a>
                     </div>
                     <div style="width: 80%;float: right;">
@@ -29,16 +29,19 @@
                     </div>
                     <div style="clear: both;"></div>
                 </div>
+                <p>Ngày đặt hàng: {{ date('d-m-Y H:i') }}</p>
+                <p>Ngày giao hàng dự kiến: 2-4 ngày kể từ ngày đặt hàng</p>
             @endforeach
-            <h2>Tổng tiền : <b>{{ \Cart::subtotal(0) }}</b></h2>
+            <h2>Tổng tiền thanh toán: <b>{{ \Cart::subtotal(0) }}</b></h2>
         </div>
-        <div>
-            <p>Đây là email tự động xin vui không không trả lời vào email này</p>
-            <p>Mời bạn <a href="{{ route('get.user.update_info') }}">click vào đây</a> để cập nhật thông tin cá nhân</p>
+        <div class="text-center">
+            <p>Đây là email tự động, vui lòng không trả lời vào email này</p>
+            <p>Chúc bạn có trải nghiệm hài lòng cùng với Hapi2hand!</p>
         </div>
     </div>
-    <div style="background: #f4f5f5;box-sizing: border-box;padding: 15px">
-        <p style="margin:2px 0;color: #333">Email : admin@gmail.com</p>
-        <p style="margin:2px 0;color: #333">Phone : 0928817228</p>
+    <div style="background: #f4f5f5;box-sizing: border-box;padding: 15px" class="text-center">
+        <p>Nếu có vấn đề cần giải quyết vui lòng liên hệ chúng tôi qua thông tin bên dưới</p>
+        <p style="margin:2px 0;color: #333">Email : admin.hapi2hand@gmail.com</p>
+        <p style="margin:2px 0;color: #333">Phone : 0559518488</p>
     </div>
 </div>

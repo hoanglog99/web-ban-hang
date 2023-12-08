@@ -2,7 +2,7 @@
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Trang quản trị hệ thống website bán hàng điện tử</h1>
+        <h1>Trang quản trị hệ thống website bán giày Hapi2hand</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         </ol>
@@ -24,8 +24,7 @@
             </div>
             <div class="box-body">
                 <ul>
-                    <li>Họ Tên: {{ $admin->name }}</li>
-                    <li>Lớp : {{ $admin->class }}</li>
+                    <li>Họ Tên: {{ $admin->name }}</li>            
                     <li>Số điện thoại : {{ $admin->phone }}</li>
                     <li>Email : {{ $admin->email }}</li>
                 </ul>

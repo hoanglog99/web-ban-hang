@@ -22,7 +22,15 @@
             <div class="col-4">
                 <h5>Hình thức thanh toán</h5>
                 <div class="box">
-                    <p>Hình thức: <b>Giao hàng nhận tiền</b></p>
+                    <p>Hình thức: 
+                        <b>                        
+                            @if ($transaction->payment)
+                                 Thanh toán Online
+                            @else
+                                 Thanh toán khi nhận hàng
+                            @endif
+                         </b>
+                    </p>
                     <p>Tổng tiền: <b>{{ number_format($transaction->tst_total_money,0,',','.') }} VNĐ</b></p>
                 </div>
             </div>

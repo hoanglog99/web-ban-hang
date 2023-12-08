@@ -7,6 +7,7 @@
         <div class="left">
             <div class="list">
                 <div class="title">THÔNG TIN GIỎ HÀNG</div>
+                @if (sizeof($shopping) > 0)
                 <div class="list__content">
                     <table class="table">
                         <thead>
@@ -58,12 +59,12 @@
                                     </td>
                                     <td>
                                         <div class="qty_number">
-                                            <input type="number"  min="1" class="input_quantity" name="quantity_14692" value="{{  $item->qty }}" id="">
+                                            <input disabled type="number"  min="1" class="input_quantity" name="quantity_14692" value="{{  $item->qty }}" id="">
                                             <p data-price="{{ $item->price }}" data-url="{{  route('ajax_get.shopping.update', $key) }}" data-id-product="{{  $item->id }}">
                                                 <span class="js-increase">+</span>
                                                 <span class="js-reduction">-</span>
                                             </p>
-                                            <a href="{{  route('get.shopping.delete', $key) }}" class="js-delete-item btn-action-delete"><i class="la la-trash"></i></a>
+                                            <a href="{{  route('get.shopping.delete', $key) }}" class="js-delete-item btn-action-delete"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                     <td>
@@ -75,6 +76,12 @@
                     </table>
                     <p style="float: right;margin-top: 20px;" class="total_cart">Tổng tiền : <b id="sub-total">{{ \Cart::subtotal(0) }} đ</b></p>
                 </div>
+                @else
+                    <div style="text-align: center;margin-bottom: 20px">Bạn chưa có sản phẩm nào</div>
+                    <div style="text-align: center">
+                        <div class="btn btn-purple"><a href="{{  route('get.product.list') }}" style="color: #fff">Tiếp tục mua hàng</a></div>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="right">
@@ -85,45 +92,52 @@
                         @csrf
                         <div class="form-group">
                             <label for="name" >Họ và tên <span class="cRed">(*)</span></label>
-                            <input name="tst_name" id="name" required="" value="{{ get_data_user('web','name') }}" type="text" class="form-control" >
+                            <input name="tst_name" id="name" required="" value="{{ get_data_user('web','name') }}" type="text" class="form-control" 
+                              oninvalid="this.setCustomValidity('Vui lòng nhập tên')" oninput="setCustomValidity('')">
                         </div>
                         <div class="form-group">
                             <label for="phone">Điện thoại <span class="cRed">(*)</span></label>
-                            <input name="tst_phone" id="phone" required="" value="{{ get_data_user('web','phone') }}" type="text" class="form-control" >
+                            <input name="tst_phone" id="phone" required="" value="{{ get_data_user('web','phone') }}" type="text" class="form-control"
+                              oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')" oninput="setCustomValidity('')">
                         </div>
                         <div class="form-group">
                             <label for="address">Địa chỉ <span class="cRed">(*)</span></label>
-                            <input name="tst_address" id="address" required="" value="{{ get_data_user('web','address') }}" type="text" class="form-control">
+                            <input name="tst_address" id="address" required="" value="{{ get_data_user('web','address') }}" type="text" class="form-control"
+                                oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ')" oninput="setCustomValidity('')" placeholder="Số nhà, Đường, Phường (Xã), Quận (Huyện), Tỉnh (TP)">
                         </div>
                         <div class="form-group">
                             <label for="email">Email <span class="cRed">(*)</span></label>
-                            <input name="tst_email" id="email" required="" value="{{ get_data_user('web','email') }}" type="text" value="" class="form-control">
+                            <input name="tst_email" id="email" required="" value="{{ get_data_user('web','email') }}" type="text" value="" class="form-control"
+                                oninvalid="this.setCustomValidity('Vui lòng nhập Email')" oninput="setCustomValidity('')">
                         </div>
                         <div class="form-group">
                             <label for="note">Ghi chú thêm</label>
                             <textarea name="tst_note" id="note" cols="3" style="min-height: 100px;" rows="2" class="form-control"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="note">Áp dụng mã giảm giá</label>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <input type="text" value="" class="form-control discount_code" placeholder="Mã giảm giá" style="width: 60%; float: left;">
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-purple btn-cart-discount" type="button" style="margin-left: 15px">
-                                        <span class="">Áp dụng</span>
-                                    </button>
+                        @if (sizeof($shopping) > 0)
+                            <div class="form-group">
+                                <label for="note">Áp dụng mã giảm giá</label>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="text" value="" class="form-control discount_code" placeholder="Mã giảm giá" style="width: 60%; float: left;">
+                                    </div>
+                                    
+                                        <div class="col-md-4">
+                                            <button class="btn btn-purple btn-cart-discount" type="button" style="margin-left: 15px">
+                                                <span class="">Áp dụng</span>
+                                            </button>
+                                        </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="btn-buy">
-                            <button class="buy1 btn btn-purple {{ \Auth::id() ? '' : 'js-show-login' }}" type="submit">
-                                Thanh toán khi nhận hàng
-                            </button>
-                            <button class="btn btn-purple {{ \Auth::id() ? '' : 'js-show-login' }}" name="payment" value="2" type="submit">
-                                <span class="">Thanh toán online</span>
-                            </button>
-                        </div>
+                            <div class="btn-buy">
+                                <button class="buy1 btn btn-purple {{ \Auth::id() ? '' : 'js-show-login' }}" type="submit">
+                                    Thanh toán khi nhận hàng
+                                </button>
+                                <button class="btn btn-purple {{ \Auth::id() ? '' : 'js-show-login' }}" name="payment" value="2" type="submit">
+                                    <span class="">Thanh toán online</span>
+                                </button>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>
@@ -158,7 +172,7 @@
                 let $input = $this.parent().prev();
                 let number = parseInt($input.val());
                 if (number >= 10) {
-					toastr.warning("Mỗi sản phẩm chỉ được mua tối đa số lượng 10 lần / 1 lần mua");
+					// toastr.warning("Mỗi sản phẩm chỉ được mua tối đa số lượng 10 lần / 1 lần mua");
                 	return false;
                 }
 
@@ -177,7 +191,7 @@
 					if (typeof results.totalMoney !== "undefined") {
 						$input.val(number);
 						$("#sub-total").text(results.totalMoney+ " đ");
-						toastr.success(results.messages);
+						// toastr.success(results.messages);
 						$this.parents('tr').find(".js-total-item").text(results.totalItem +' đ');
                     }else {
 						$input.val(number - 1);
@@ -190,7 +204,7 @@
                 let $input = $this.parent().prev();
                 let number = parseInt($input.val());
                 if (number <= 1) {
-					toastr.warning("Số lượng sản phẩm phải >= 1");
+					// toastr.warning("Số lượng sản phẩm phải >= 1");
                 	return false;
                 }
 
@@ -209,7 +223,7 @@
 					if (typeof results.totalMoney !== "undefined") {
 						$input.val(number);
 						$("#sub-total").text(results.totalMoney+ " đ");
-						toastr.success(results.messages);
+						// toastr.success(results.messages);
 						$this.parents('tr').find(".js-total-item").text(results.totalItem +' đ');
 					}else {
 						$input.val(number + 1);

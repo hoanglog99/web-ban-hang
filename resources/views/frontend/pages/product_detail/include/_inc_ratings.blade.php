@@ -27,10 +27,6 @@
                 </div>
             @endforeach
         </div>
-        <div class="item dashboards_btn">
-            <a href="javascript:;void(0)" title="Gửi đánh giá"
-               class="btn btn-success {{ \Auth::id() ? 'js-review' : 'js-show-login' }}">Gửi đánh giá</a>
-        </div>
     </div>
     @if (\Request::route()->getName() == 'get.product.rating_list')
         @include('frontend.pages.product_detail.include._inc_filter')

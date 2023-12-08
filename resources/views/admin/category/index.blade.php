@@ -26,7 +26,6 @@
                                     <th>Tên danh mục</th>
                                     <th>Ảnh</th>
                                     <th>Trạng thái</th>
-                                    <th>Hiển thị</th>
                                     <th>Ngày tạo</th>
                                     <th>Hành động</th>
                                 </tr>
@@ -46,17 +45,9 @@
                                                     <a href="{{ route('admin.category.active', $category->id) }}" class="label label-default">Ẩn</a>
                                                 @endif
                                             </td>
-                                            <td>
-                                                @if ($category->c_hot == 1)
-                                                    <a href="{{ route('admin.category.hot', $category->id) }}" class="label label-info">Hiển thị</a>
-                                                @else
-                                                    <a href="{{ route('admin.category.hot', $category->id) }}" class="label label-default">Ẩn</a>
-                                                @endif
-                                            </td>
                                             <td>{{  $category->created_at }}</td>
                                             <td>
                                                 <a href="{{ route('admin.category.update', $category->id) }}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                                                <a href="{{  route('admin.category.delete', $category->id) }}" class="btn btn-xs btn-danger js-delete-confirm"><i class="fa fa-trash"></i> Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

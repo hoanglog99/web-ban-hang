@@ -11481,6 +11481,25 @@
      font-weight: 700
 }
 
+.product-item .avatar.image {
+     position: relative;
+}
+
+.product-item .sold-out {
+     color: #c00;
+     padding: 10px;
+     border-radius: 5px;
+     background-color: #fff;
+     border: 1px solid #c00;
+     transform: rotate(-30deg);
+     font-weight: 500;
+     font-size: 20px;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     white-space: nowrap;
+}
+
 .product-item .price-sale {
      color: #999;
      margin-top: 0;

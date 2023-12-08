@@ -17,14 +17,18 @@
                 <div class="box-body">
                     <form role="form" action="" method="POST">
                          @csrf
-                        <div class="col-sm-8">
-                            <div class="form-group {{ $errors->first('t_name') ? 'has-error' : '' }}">
-                                <label for="t_name">Tên <span class="text-danger">(*)</span></label>
-                                <input type="text" class="form-control" value="{{  old('t_name', isset($type->t_name) ? $type->t_name : '') }}" name="t_name"  placeholder="Name ...">
-                                @if ($errors->first('t_name'))
-                                    <span class="text-danger">{{ $errors->first('t_name') }}</span>
-                                @endif
-                            </div>
+                        <div class="form-group {{ $errors->first('t_name') ? 'has-error' : '' }}">
+                            <label for="t_name">Tên <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" value="{{  old('t_name', isset($type->t_name) ? $type->t_name : '') }}" name="t_name"  placeholder="Name ...">
+                            @if ($errors->first('t_name'))
+                                <span class="text-danger">{{ $errors->first('t_name') }}</span>
+                            @endif
+                        </div>
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox" name="t_is_multi_choice" {{ $type->t_is_multi_choice ? "checked"  : '' }}> 
+                                Chọn nhiều
+                            </label>
                         </div>
                         <div class="col-sm-12">
                             <div class="box-footer text-center "  style="margin-top: 20px;">

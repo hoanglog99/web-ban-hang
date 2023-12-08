@@ -50,7 +50,7 @@
             <label></label>
         </div>
         <div class="form-group">
-            <label >Kết quả: GD Thanh cong</label>
+            <label >Kết quả: Giao dịch thành công!</label>
             <label>
             </label>
             <br>

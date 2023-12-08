@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <button class="btn btn-purple btn-xs">Đăng nhập</button>
                     {{--<a href="{{ route('get.login.social',['social' => 'google']) }}">Google</a><br>--}}
-                    <a href="{{ route('get.email_reset_password') }}">Quên mật khẩu</a>
+                    <a href="{{ route('user.forget.password') }}">Quên mật khẩu</a>
                 </div>
             </form>
         </div>

@@ -12,17 +12,17 @@ return [
                 'icon'  => 'fa fa-edit'
             ],
             [
-                'name'  => 'Nhà sản xuất',
+                'name'  => 'Nhà cung cấp',
                 'namespace' => 'producer',
                 'route' => 'admin.producer.index',
                 'icon'  => 'fa fa-truck'
             ],
-//            [
-//                'name'  => 'Kiểu dữ liệu',
-//                'namespace' => 'type',
-//                'route' => 'admin.type.index',
-//                'icon'  => 'fa fa-bookmark'
-//            ],
+            [
+                'name'  => 'Kiểu dữ liệu',
+                'namespace' => 'type',
+                'route' => 'admin.type.index',
+                'icon'  => 'fa fa-bookmark'
+            ],
             [
                 'name'  => 'Dữ liệu sản phẩm',
                 'namespace' => 'attribute',

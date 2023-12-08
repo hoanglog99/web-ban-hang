@@ -59,6 +59,10 @@
                                     <span>View :&nbsp</span>
                                     <span>{{ $product->pro_view }}</span>
                                 </p>
+                                <p>
+                                    <span>Số lượng còn :&nbsp</span>
+                                    <span style="font-weight: bold; font-size: large;">{{ $product->pro_number }}</span>
+                                </p>
                             </div>
                             @if($product->attributes->count() > 0)
                                 <div>
@@ -95,7 +99,7 @@
                                 </div>
                             @endif
 
-                            <div>
+                            <!-- <div>
                                 <div style="float: left; width: 30%; line-height: 36px;">
                                     Giới tính :
                                 </div>
@@ -103,17 +107,25 @@
                                     <label for="gender-male" style="line-height: 40px;"><input type="radio" name="gender" value="1" id="gender-male">&nbsp; Nam</label> &nbsp; &nbsp;
                                     <label for="gender-female"><input type="radio" name="gender" value="2" id="gender-female">&nbsp; Nữ</label>
                                 </div>
-                            </div>
+                            </div> -->
                             <div style="clear: both;"></div>
-                            <div class="btn-cart">
-                                <a href="{{ route('get.shopping.add', $product->id) }}" title=""
-                                   class="muangay">
-                                    <span>Mua ngay</span>
-                                    <span>Hotline: 1800.6005</span>
-                                </a>
+                            <div class="btn-cart" style="margin-top: 10px;">
+                                @if ($product->pro_number > 0 )
+                                    <a href="{{ route('get.shopping.add', $product->id) }}" title=""
+                                    class="muangay" id="buy-now-btn">
+                                        <span>Mua ngay</span>
+                                        <span>Hotline: 0559518488</span>
+                                    </a>
+                                @else
+                                    <a title=""
+                                    style="background-color: #fe0000;color: #fff" id="buy-now-btn">
+                                        <span>Hết hàng</span>
+                                        <span>Hotline: 0559518488</span>
+                                    </a>
+                                @endif
                                 <a href="{{ route('ajax_get.user.add_favourite', $product->id) }}"
                                    title="Thêm sản phẩm yêu thích"
-                                   class="muatragop  {{ !\Auth::id() ? 'js-show-login' : 'js-add-favourite' }}">
+                                   class="muatragop  {{ !\Auth::id() ? 'js-show-login' : 'js-add-favourite' }}" id="buy-now-btn">
                                     <span>Yêu thích</span>
                                     <span>Sản phẩm</span>
                                 </a>
@@ -132,10 +144,6 @@
                                             @endif
                                         </h3>
                                     </div>
-                                    <div class="item">
-                                        <p class="text1">Xuất sứ:</p>
-                                        <h3 class="text2">{{ isset($product->producer) && !empty($product->producer) ? $product->producer->pdr_name : ''  }}</h3>
-                                    </div>
                                 </div>
                             </div>
 
@@ -151,7 +159,7 @@
             @include('frontend.pages.product_detail.include._inc_ratings')
             <div class="comments">
                 <div class="form-comment">
-                    <form action="" method="POST">
+                    <form action="{{ route('ajax_post.comment') }}" method="POST">
                         <input type="hidden" name="productId" value="{{ $product->id }}">
                         <div class="form-group">
                             <textarea placeholder="Mời bạn để lại bình luận ..." name="comment" class="form-control" id="" cols="30" rows="5"></textarea>
@@ -159,9 +167,9 @@
                         <div class="footer">
                             <p>
                                 {{--<a href=""><i class="la la-camera"></i> Gửi ảnh</a>--}}
-                                <a href="">Quy định đăng bình luận</a>
+                                <a href="#">Quy định đăng bình luận</a>
                             </p>
-                            <button class=" {{ \Auth::id() ? 'js-save-comment' : 'js-show-login' }}">Gửi bình luận</button>
+                            <button type="submit" class=" {{ \Auth::id() ? 'js-save-comment' : 'js-show-login' }}">Gửi bình luận</button>
                         </div>
                     </form>
                 </div>
@@ -200,33 +208,43 @@
     <script>
 		var ROUTE_COMMENT = '{{ route('ajax_post.comment') }}';
 		var CSS = "{{ asset('css/product_detail.min.css') }}";
-		var URL_CAPTCHA = '{{ route('ajax_post.captcha.resume') }}';
+
 
     </script>
     <script src="{{ asset('admin/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('js/product_detail.js') }}" type="text/javascript"></script>
     <script>
-        $(function () {
-            $('.muangay').click(function (event) {
-                event.preventDefault();
+       $(function () {
+    $('.muangay').click(function (event) {
+        event.preventDefault();
 
-                var link = $(this).attr('href');
-                var size = $('#product-size').val();
-                var color = $('#product-color').val();
-                var gender = $('input[name=gender]:checked').val() !== undefined ? $('input[name=gender]:checked').val() : '';
+        var size = $('#product-size').val();
+        var color = $('#product-color').val();
+        // var gender = $('input[name=gender]:checked').val() !== undefined ? $('input[name=gender]:checked').val() : '';
 
-                $.ajax({
-                    url: link,
-                    type: 'GET',
-                    data : {
-                        size : size,
-                        gender : gender,
-                        color : color,
-                    }
-                }).done(function (result) {
-                    window.location = window.location.href;
-                })
-            })
-        });
+        // Kiểm tra xem các trường đã được chọn hay chưa
+        if (size === '' || color === '') {
+            // Nếu bất kỳ trường nào chưa được chọn, hiển thị thông báo hoặc thực hiện hành động phù hợp ở đây
+            alert('Vui lòng chọn size, màu trước khi mua hàng.');
+        } else {
+            // Tất cả các trường đã được chọn, thực hiện yêu cầu AJAX
+            var link = $(this).attr('href');
+            
+            $.ajax({
+                url: link,
+                type: 'GET',
+                data: {
+                    size: size,
+                    // gender: gender,
+                    color: color,
+                }
+            }).done(function (result) {
+                // Hoàn thành yêu cầu AJAX, có thể thực hiện hành động khác ở đây nếu cần
+                window.location = window.location.href;
+            });
+        }
+    });
+});
+
     </script>
 @stop

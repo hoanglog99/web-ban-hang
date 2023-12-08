@@ -25,9 +25,9 @@ class RequestRegister extends FormRequest
     {
         return [
             'email'     => 'required|max:190|min:3|unique:users,email,'.$this->id,
-            'name'      => 'required',
-            'phone'     => 'required|unique:users,phone,'.$this->id,
-            'password'  => 'required',
+            'name'      => 'required|min:2',
+            'phone'     => 'required|min:10|unique:users,phone,'.$this->id,
+            'password'  => 'required|min:8',
 //            'g-recaptcha-response' => 'required|captcha'
         ];
     }
@@ -36,11 +36,14 @@ class RequestRegister extends FormRequest
     {
         return [
             'name.required'          => 'Dữ liệu không được để trống',
+            'name.min'               => 'Tên không hợp lệ',
             'email.required'         => 'Dữ liệu không được để trống',
             'email.unique'           => 'Dữ liệu đã tồn tại',
             'phone.unique'           => 'Dữ liệu đã tồn tại',
             'phone.required'         => 'Dữ liệu không được để trống',
+            'phone.min'              => 'Số điện thoại không hợp lệ',
             'password.required'      => 'Dữ liệu không được để trống',
+            'password.min'           => 'Mật khẩu phải dài hơn 8 kí tự',
         ];
     }
 }

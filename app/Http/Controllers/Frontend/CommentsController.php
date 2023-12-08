@@ -23,11 +23,11 @@ class CommentsController extends Controller
             }
 
             // Check load lại page để hiện popup captcha
-            if (\Auth::user()->count_comment >= 2) {
-                return response([
-                    'code' => '501'
-                ]);
-            }
+            // if (\Auth::user()->count_comment >= 20) {
+            //     return response([
+            //         'code' => '501'
+            //     ]);
+            // }
 
             $data      = [
                 'cmt_user_id'    => \Auth::user()->id,

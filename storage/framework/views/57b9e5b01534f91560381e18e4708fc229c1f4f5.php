@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Quản lý nhà sản xuất</h1>
+        <h1>Quản lý nhà cung cấp</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="<?php echo e(route('admin.producer.index')); ?>"> Producer</a></li>

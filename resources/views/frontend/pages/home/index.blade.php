@@ -55,9 +55,18 @@
             @endfor
         </div> --}}
         <div class="product-one">
+            <style>
+                .top a:hover{
+                    color: cornflowerblue;
+                    border: 1px solid black outset;
+                    border-color: blue;
+                }
+            </style>
             <div class="top">
-                <a href="#" title="" class="main-title">TẤT CẢ SẢN PHẨM</a>
-               
+                <a href="{{URL::to('san-pham')}}" title="" class="main-title">XEM TẤT CẢ SẢN PHẨM TẠI ĐÂY
+                    <img srcset="{{ url('images/press.png') }} 2x" style="height: 25px; width:150" alt="Home">
+                </a>
+                
             </div>
             <div class="bot">
 

@@ -23,12 +23,15 @@ Route::group(['namespace' => 'Auth','prefix' => 'account'], function(){
     Route::get('logout','LoginController@getLogout')->name('get.logout');
     Route::get('reset-password','ResetPasswordController@getEmailReset')->name('get.email_reset_password');
     Route::post('reset-password','ResetPasswordController@checkEmailResetPassword');
+    Route::match(['get','post'],'forget-password','ForgetPasswordController@forgetPassword')->name('user.forget.password');
 
     Route::get('new-password','ResetPasswordController@newPassword')->name('get.new_password');
     Route::post('new-password','ResetPasswordController@savePassword');
 
     Route::get('/{social}/redirect', 'SocialAuthController@redirect')->name('get.login.social');
     Route::get('/{social}/callback', 'SocialAuthController@callback')->name('get.login.social_callback');
+
+
 });
 
 // Login admin

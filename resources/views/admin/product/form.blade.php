@@ -12,9 +12,13 @@
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
+
 </style>
 <form role="form" action="" method="POST" enctype="multipart/form-data">
     @csrf
+    @if (isset($error))
+    {{var_dump($error);}}
+    @endif
     <div class="col-sm-8">
         <div class="box box-warning">
             <div class="box-header with-border">
@@ -22,7 +26,7 @@
             </div>
             <div class="box-body">
                 <div class="form-group ">
-                    <label for="exampleInputEmail1">Tên <b class="col-red">(*)</b></label>
+                    <label for="exampleInputEmail1">Tên</label>
                     <input type="text" class="form-control" name="pro_name" placeholder="Name ...." autocomplete="off" value="{{  $product->pro_name ?? old('pro_name') }}">
                     @if ($errors->first('pro_name'))
                         <span class="text-danger">{{ $errors->first('pro_name') }}</span>
@@ -31,8 +35,8 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Giá sản phẩm</label>
-                             <input type="text" name="pro_price" value="{{  old('pro_price', isset($product->pro_price) ? $product->pro_price : 0) }}" class="form-control" data-type="currency" placeholder="15.000.000">
+                            <label for="exampleInputEmail1">Giá sản phẩm (đ)</label>
+                             <input type="number" name="pro_price" value="{{  old('pro_price', isset($product->pro_price) ? $product->pro_price : 0) }}" class="form-control" data-type="currency" placeholder="15.000.000">
                              @if ($errors->first('pro_price'))
                                 <span class="text-danger">{{ $errors->first('pro_price') }}</span>
                             @endif
@@ -40,8 +44,20 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Giảm giá</label>
+                            <label for="exampleInputEmail1">Giảm giá (%)</label>
                              <input type="number" name="pro_sale" value="{{ old('pro_sale', isset($product->pro_sale) ? $product->pro_sale : 0) }}" class="form-control" data-type="currency" placeholder="5">
+                             @if ($errors->first('pro_sale'))
+                                <span class="text-danger">{{ $errors->first('pro_sale') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="box-body" style="padding: 0px;">
+                        <div class="form-group col-sm-12">
+                            <label for="">Số lượng</label>
+                            <input type="number"  class="form-control" name="pro_number" value="{{ $product->pro_number ?? old('pro_number',0) }}" placeholder="10">
+                            @if ($errors->first('pro_number'))
+                                <span class="text-danger">{{ $errors->first('pro_number') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -66,9 +82,8 @@
                 </div>
 
                 <div class="form-group ">
-                    <label class="control-label">Danh mục <b class="col-red">(*)</b></label>
+                    <label class="control-label">Danh mục</label>
                     <select name="pro_category_id" class="form-control ">
-                        <option value="">__Click__</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ ($product->pro_category_id ?? 0) == $category->id ? "selected='selected'" : "" }}>
                                 {{  $category->c_name }}
@@ -82,86 +97,34 @@
             </div>
         </div>
         <div class="box box-warning">
-            <div class="box-header with-border">
-                <h3 class="box-title">Size</h3>
-            </div>
             <div class="box-body">
                 @foreach($attributes  as $key => $attribute)
                     @if (!empty($attribute['attributes']))
-                        <div class="form-group col-sm-12">
-                            @foreach($attribute['attributes'] as $key => $item)
-                                @if($item['atb_type_id'] == 1)
-                                    <div class="col-sm-3 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="attribute[]" {{ in_array($item['id'], $attributeOld ) ? "checked"  : '' }}
-                                            value="{{ $item['id'] }}"> {{ $item['atb_name'] }}
-                                        </label>
-                                     </div>
-                                @endif
-                             @endforeach
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-            <hr>
-            <div class="box-header with-border">
-                <h3 class="box-title">Màu sắc</h3>
-            </div>
-            <div class="box-body">
-                @foreach($attributes  as $key => $attribute)
-                    @if (!empty($attribute['attributes']))
-                        <div class="form-group col-sm-12">
-                            @foreach($attribute['attributes'] as $key => $item)
-                                @if($item['atb_type_id'] == 2)
-                                <div class="col-sm-3 checkbox">
-                                    <label>
-                                        <input type="checkbox" name="attribute[]" {{ in_array($item['id'], $attributeOld ) ? "checked"  : '' }}
-                                        value="{{ $item['id'] }}"> {{ $item['atb_name'] }}
-                                    </label>
+                        <div class="form-group ">
+                            <label class="control-label">{{$attribute['t_name']}}</label>
+                            @if (!$attribute['t_is_multi_choice'])
+                                <select name="attribute[]" class="form-control ">
+                                    @foreach($attribute['attributes'] as $key => $item)
+                                        <option value="{{ $item['id'] }}" {{ in_array($item['id'], $attributeOld ) ? "checked"  : '' }}>
+                                            {{ $item['atb_name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @else
+                                <div class="form-group col-sm-12">
+                                    @foreach($attribute['attributes'] as $key => $item)
+                                        <div class="col-sm-3 checkbox">
+                                            <label>
+                                                <input type="checkbox" name="attribute[]" {{ in_array($item['id'], $attributeOld ) ? "checked"  : '' }}
+                                                value="{{ $item['id'] }}"> {{ $item['atb_name'] }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
-                                @endif
-                            @endforeach
+                            @endif
                         </div>
                     @endif
                 @endforeach
-            </div>
-            <hr>
-            {{--<div class="box-header with-border">--}}
-                {{--<h3 class="box-title">Album ảnh</h3>--}}
-            {{--</div>--}}
-            {{--<div class="box-body">--}}
-                {{--@if (isset($images))--}}
-                    {{--<div class="row" style="margin-bottom: 15px;">--}}
-                        {{--@foreach($images as $item)--}}
-                            {{--<div class="col-sm-2">--}}
-                                {{--<a href="{{ route('admin.product.delete_image', $item->id) }}" style="display: block;">--}}
-                                    {{--<img src="{{ pare_url_file($item->pi_slug) }}" style="width: 100%;height: auto">--}}
-                                {{--</a>--}}
-                            {{--</div>--}}
-                        {{--@endforeach--}}
-                    {{--</div>--}}
-                {{--@endif--}}
-                 {{--<div class="form-group">--}}
-                    {{--<div class="file-loading">--}}
-                        {{--<input id="images" type="file" name="file[]" multiple class="file" data-overwrite-initial="false" data-min-file-count="0">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<hr>--}}
-            <div class="box-body" style="padding: 0px;">
-                <div class="form-group col-sm-6">
-                    <label for="exampleInputEmail1">Xuất sứ</label>
-                    <select name="pro_country" class="form-control ">
-                        <option value="0">__Click__</option>
-                        @foreach($producer as $key => $item)
-                            <option value="{{ $item->id }}" {{ ($product->pro_country ?? '' ) == $item->id ? "selected='selected'" : "" }}>{{ $item->pdr_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="">Số lượng</label>
-                    <input type="number"  class="form-control" name="pro_number" value="{{ $product->pro_number ?? old('pro_number',0) }}" placeholder="10">
-                </div>
             </div>
         </div>
         <div class="box box-warning">

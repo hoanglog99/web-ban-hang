@@ -24,6 +24,12 @@
                                 <span class="text-danger">{{ $errors->first('t_name') }}</span>
                             @endif
                         </div>
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox" name="t_is_multi_choice" {{ old('t_is_multi_choice') ? "checked"  : '' }}> 
+                                Chọn nhiều
+                            </label>
+                        </div>
                         <div class="col-sm-12">
                             <div class="box-footer text-center "  style="margin-top: 20px;">
                                 <a href="{{ route('admin.type.index') }}" class="btn btn-danger">

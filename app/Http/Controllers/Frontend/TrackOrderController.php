@@ -10,7 +10,7 @@ class TrackOrderController extends Controller
     public function index()
     {
         $viewData = [
-            'title_page'    => "Đồ án tốt nghiệp",
+            'title_page'    => "Hapi2hand",
         ];
         return view('frontend.pages.shopping.track.index', $viewData);
     }

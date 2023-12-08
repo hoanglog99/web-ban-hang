@@ -19,7 +19,7 @@ class AdminRequestAttribute extends FormRequest
     public function rules()
     {
         return [
-            'atb_name'         => 'required|max:190|min:1|unique:attributes,atb_name,'.$this->id,
+            'atb_name'         => 'required|max:190|min:1',
             'atb_type_id'      => 'required',
         ];
     }
@@ -28,7 +28,6 @@ class AdminRequestAttribute extends FormRequest
     {
         return [
             'atb_name.required'         => 'Dữ liệu không được để trống',
-            'atb_name.unique'           => 'Dữ liệu đã tồn tại',
             'atb_name.min'                => 'Dữ liệu phải nhiều hơn 3 ký tự',
             'atb_type_id.required'         => 'Dữ liệu không được để trống',
         ];
